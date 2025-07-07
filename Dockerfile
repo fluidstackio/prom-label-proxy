@@ -1,9 +1,6 @@
 # Build stage
 FROM golang:1.22-alpine AS builder
 
-ARG ARCH="amd64"
-ARG OS="linux"
-
 # Install build dependencies
 RUN apk add --no-cache git make
 
@@ -19,13 +16,11 @@ RUN go mod download
 # Copy source code
 COPY . .
 
-# Build the binary
-RUN CGO_ENABLED=0 GOOS=${OS} GOARCH=${ARCH} go build -a -installsuffix cgo -o prom-label-proxy .
+# Build the binary for linux/amd64
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o prom-label-proxy .
 
 # Final stage
-ARG ARCH="amd64"
-ARG OS="linux"
-FROM quay.io/prometheus/busybox-${OS}-${ARCH}:glibc
+FROM quay.io/prometheus/busybox-linux-amd64:glibc
 LABEL maintainer="The Prometheus Authors <prometheus-developers@googlegroups.com>"
 
 # Copy the binary from builder
