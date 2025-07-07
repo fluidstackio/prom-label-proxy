@@ -46,7 +46,7 @@ jobs:
           push: true
           load: true
           tags: |
-            119673406361.dkr.ecr.us-east-2.amazonaws.com/fluidstack/container-usage:${{ github.event.release.tag_name }}
-            119673406361.dkr.ecr.us-east-2.amazonaws.com/fluidstack/container-usage:latest
+            119673406361.dkr.ecr.us-east-2.amazonaws.com/fluidstack/prom-label-proxy:${{ github.event.release.tag_name }}
+            119673406361.dkr.ecr.us-east-2.amazonaws.com/fluidstack/prom-label-proxy:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
